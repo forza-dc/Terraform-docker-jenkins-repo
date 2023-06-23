@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: St-forza
+  labels:
+    app: forza
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: forza
+  template:
+    metadata:
+      labels:
+        app: forza
+    spec:
+      containers:
+      - name: forza
+        image: stforza/forzaimage:nodeimage
+        ports:
+        - containerPort: 9005

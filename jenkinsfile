@@ -1,0 +1,59 @@
+pipeline{
+    agent any
+    // environment{
+    //     Docker_Tag = getdockertag()
+    // }
+    stages{
+        stage("git checkout"){
+            steps{
+                git branch: 'main', url: 'https://github.com/forza-dc/jenkins-pipeline.git'
+            }
+        }
+        stage("code-build"){
+            steps{
+                sh "npm install"
+            }
+        }
+        stage("Build docker image"){
+            steps{
+                sh " docker build   -t  stforza/forzaimage:nodeimage ."
+            }
+        }
+        stage("Push docker image"){
+            steps{
+                withCredentials([string(credentialsId: 'stforza', variable: 'savepasswd')]) {
+                sh "docker login -u stforza -p ${savepasswd}"
+
+                sh "docker push stforza/forzaimage:nodeimage"
+            }
+            }
+        }
+        stage("deployments"){
+            steps{
+
+                 sshagent(['ec2_production']) {
+                        script{
+                            try{
+                                sh "scp -o StrictHostKeyChecking=no service.yml deployment.yml ubuntu@35.180.21.83:/home/ubuntu/"
+                                ssh remote: "ubuntu@35.180.21.83 kubectl create -f ."
+                            }
+                            catch(Exception e){
+                                 echo "Error: $e.getMessage()"
+                            }
+                        }
+
+                             
+                             }
+
+        }
+        }
+      
+    }
+
+    }
+
+    
+    // def getdockertag(){
+    //     def tag = sh script: 'git rev-parse HEAD',returnstdout:true
+    //     return tag 
+    // }
