@@ -52,6 +52,12 @@ terraform plan
 
 terraform apply
 
+for k8s deployment create two files Deployments.yml and service.yml file and 
+set up single node cluster with KIND  and run the commands like
+kubectl apply -f deployment.yml and 
+kubectl apply -f service.yml 
+use nodeport for the public access in service with server ip
+
 
 
 
