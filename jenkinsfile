@@ -6,7 +6,7 @@ pipeline{
     stages{
         stage("git checkout"){
             steps{
-                git branch: 'main', url: 'https://github.com/forza-dc/Terraform-docker-jenkins-repo.git'
+                git branch: 'master', url: 'https://github.com/forza-dc/Terraform-docker-jenkins-repo.git'
             }
         }
         stage("code-build"){
