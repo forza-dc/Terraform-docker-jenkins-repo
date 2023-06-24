@@ -28,25 +28,25 @@ pipeline{
             }
             }
         }
-        // stage("deployments"){
-        //     steps{
+        stage("deployments"){
+            steps{
 
-        //          sshagent(['ec2_production']) {
-        //                 script{
-        //                     try{
-        //                         sh "scp -o StrictHostKeyChecking=no service.yml deployment.yml ubuntu@35.180.21.83:/home/ubuntu/"
-        //                         ssh remote: "ubuntu@35.180.21.83 kubectl create -f ."
-        //                     }
-        //                     catch(Exception e){
-        //                          echo "Error: $e.getMessage()"
-        //                     }
-        //                 }
+                 sshagent(['ec2_production']) {
+                        script{
+                            try{
+                                sh "scp -o StrictHostKeyChecking=no service.yml deployment.yml ubuntu@35.180.21.83:/home/ubuntu/"
+                                ssh remote: "ubuntu@35.180.21.83 kubectl create -f ."
+                            }
+                            catch(Exception e){
+                                 echo "Error: $e.getMessage()"
+                            }
+                        }
 
                              
-        //                      }
+                             }
 
-        // }
-        // }
+        }
+        }
       
     }
 
