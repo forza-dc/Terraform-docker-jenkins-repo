@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: forza
-        image: stforza/forzaimage:nodeimage
+        image: stforza/forzaimage:nodeimages
         ports:
         - containerPort: 9005

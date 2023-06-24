@@ -42,14 +42,14 @@ run the same infra.tf file that have resource path rest of the other block.
 
 <!-->
 
- The Basic command that is requried to run the usecase module 
+ The Basic Terraform command that are requried to run the usecase module 
 
 terraform init
 
 terraform validate
 
 terraform plan 
-and
+
 terraform apply
 
 
